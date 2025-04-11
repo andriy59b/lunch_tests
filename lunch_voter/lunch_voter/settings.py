@@ -1,3 +1,5 @@
+import os
+
 """
 Django settings for lunch_voter project.
 
@@ -83,13 +85,17 @@ WSGI_APPLICATION = 'lunch_voter.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lunch_db',
-        'USER': 'postgres',
-        'PASSWORD': '199887766',
-        'HOST': 'db',
-        'PORT': '5432',
+        'NAME': os.environ.get('POSTGRES_DB', 'lunch_db'),
+        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'postgres'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'db'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
+
+SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key')
+
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 
 # Password validation
